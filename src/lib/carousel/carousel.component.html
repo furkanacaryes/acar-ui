@@ -1,0 +1,49 @@
+
+
+<!-- Slides Wrapper
+Wrapper for slide-items. Could be useful for styling in some cases. -->
+
+<!-- <section class="slides"> -->
+
+
+  <!-- Individual Slide Item
+  (i + 1) for 1 indexed position due to jumpTo(position) -->
+
+  <div
+    *ngFor="let slide of slides; let i=index"
+    class="slide-item"
+    [ngClass]="setPosition(i+1)">
+
+
+    <!-- Customizable Slide Inner
+
+    This should be as extensible as possible.
+    Provides iterable UI element. Custom or not.
+    [ NOTICE ] => styles are not encapsulated! Use BEM naming conventions -->
+
+    <ng-container
+      *ngTemplateOutlet="custom ? custom : default; context:{$implicit: slide}">
+    </ng-container>
+
+    <ng-template #default>
+      <img [src]="slide.img"/>
+      <div class="slide-item__overlay"></div>
+      <div class="slide-item__captions">
+        <h1>{{slide.heading}}</h1>
+        <p>{{slide.predesc}}</p>
+      </div>
+    </ng-template>
+
+  </div>
+<!-- </section> -->
+
+
+<!-- Slider Buttons
+
+prev and next buttons should be acar-ui-icon
+icon is bound to mask-url and easily customizable with global styles. -->
+
+<section class="slider__buttons" [hidden]="sliderButtonsHidden">
+  <div class="slider__button slider__button--prev" (click)="prev()"></div>
+  <div class="slider__button slider__button--next" (click)="next()"></div>
+</section>
